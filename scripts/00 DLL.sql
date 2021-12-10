@@ -1,0 +1,45 @@
+DROP DATABASE IF EXISTS espuchifai;
+CREATE DATABASE espuchifai;
+USE espuchifai;
+
+CREATE TABLE BANDA (
+  IdBanda SMALLINT,
+  Nombre VARCHAR (50),
+  Anio YEAR,
+  PRIMARY KEY (IdBanda)
+  );
+
+CREATE TABLE ALBUM (
+  IdAlbum INT,
+  Nombre VARCHAR (50),
+  Fecha DATE,
+  IdBanda SMALLINT, 
+  PRIMARY KEY (IdAlbum),
+  CONSTRAINT fk_ALBUM_BANDA FOREIGN KEY (IdBanda)
+  REFERENCES BANDA(IdBanda)
+);
+
+CREATE TABLE CANCION (
+  IdCancion SMALLINT,
+  Nombre VARCHAR (50),
+  Numero DECIMAL,
+  IdAlbum INT,
+  PRIMARY KEY (IdCancion),
+  FOREIGN KEY (IdAlbum) REFERENCES ALBUM(IdAlbum)
+);
+
+CREATE TABLE CLIENTE (
+IdCliente SMALLINT,
+Nombre VARCHAR(50),
+Apellido VARCHAR(50),
+Mail VARCHAR(50),
+PRIMARY KEY (IdCliente)
+);
+
+CREATE TABLE REPRODUCCION (
+IdCancion SMALLINT,
+IdCliente SMALLINT,
+Fecha DATETIME,
+PRIMARY KEY (IdCancion, IdCliente, fecha),
+FOREIGN KEY (IdCliente) REFERENCES CLIENTE (IdCliente)
+);
